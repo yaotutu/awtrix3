@@ -1687,6 +1687,12 @@ void DisplayManager_::setMatrixLayout(int layout)
   case 2:
     matrix = new FastLED_NeoMatrix(leds, 32, 8, NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
     break;
+  case 3:
+    // 列优先 + 顺序排列 (Column-Major + Progressive)
+    // 适用于: 8行 x 32列，每列从上到下，列之间从左到右
+    // Index = (x * 8) + y, 其中 x 是列号(0-31)，y 是行号(0-7)
+    matrix = new FastLED_NeoMatrix(leds, 32, 8, NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_PROGRESSIVE);
+    break;
   default:
     break;
   }
